@@ -16,6 +16,8 @@ package com.appdirect.sdk;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
+import com.appdirect.sdk.appmarket.dataconnections.DataConnectionsCommunicationConfiguration;
+import com.appdirect.sdk.appmarket.dataconnections.DefaultDataConnectionsHandlers;
 import com.appdirect.sdk.appmarket.events.AppmarketCommunicationConfiguration;
 import com.appdirect.sdk.appmarket.events.DefaultEventHandlersForOptionalEvents;
 import com.appdirect.sdk.appmarket.events.EventHandlingConfiguration;
@@ -36,6 +38,8 @@ import com.appdirect.sdk.web.oauth.SecurityConfiguration;
 		SecurityConfiguration.class,
 		DefaultEventHandlersForOptionalEvents.class,
 		EventHandlingConfiguration.class,
+		DefaultDataConnectionsHandlers.class,
+		DataConnectionsCommunicationConfiguration.class,
 		AppmarketCommunicationConfiguration.class,
 		DefaultMigrationHandlers.class,
 		DefaultValidationHandlers.class,
