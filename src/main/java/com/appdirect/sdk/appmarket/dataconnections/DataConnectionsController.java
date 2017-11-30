@@ -37,22 +37,24 @@ public class DataConnectionsController {
 	private final DataConnectionsWebhooksService dataConnectionsWebhooksService;
 	private String payload;
 
-	public DataConnectionsController(DataConnectionsAuthorizationService dataConnectionsAuthorizationService,
-																	 DataConnectionsWebhooksService dataConnectionsWebhooksService) {
+	public DataConnectionsController(
+			DataConnectionsAuthorizationService dataConnectionsAuthorizationService,
+			DataConnectionsWebhooksService dataConnectionsWebhooksService) {
 		this.dataConnectionsAuthorizationService = dataConnectionsAuthorizationService;
 		this.dataConnectionsWebhooksService = dataConnectionsWebhooksService;
 	}
 
 	/**
 	 * Defines the connector endpoint to which AppDirect Integrations (AI / AW) connect authorization should be sent.
-	 *
 	 * @param request the http request
 	 * @param source  the source from which the connect authorization request is coming from (i.e. AppWise or AppInsights)
-	 *
 	 * @return the HTTP response to return to the AppMarket.
 	 */
 	@RequestMapping(method = GET, value = "/authorization", produces = APPLICATION_JSON_VALUE)
-	public ResponseEntity<DataConnectionsAPIResult> authorization(HttpServletRequest request, HttpServletResponse response, @RequestParam("source") String source) {
+	public ResponseEntity<DataConnectionsAPIResult> authorization(
+			HttpServletRequest request,
+			HttpServletResponse response,
+			@RequestParam("source") String source) {
 		// TODO: consider adding all required parameters i.e. appId, userId, companyId, baseUrl, along with source
 		log.info("authorization: source={} ", source);
 
@@ -64,14 +66,16 @@ public class DataConnectionsController {
 
 	/**
 	 * Defines the connector endpoint to which AppDirect Integrations webhook (AI / AW) events should be sent.
-	 *
 	 * @param request  the http request
 	 * @param response the http response
 	 *
 	 * @return the HTTP response to return to the AppMarket.
 	 */
 	@RequestMapping(method = POST, value = "/webhooks", produces = APPLICATION_JSON_VALUE)
-	public ResponseEntity<DataConnectionsAPIResult> webhooks(HttpServletRequest request, HttpServletResponse response, @RequestBody String payload) {
+	public ResponseEntity<DataConnectionsAPIResult> webhooks(
+			HttpServletRequest request,
+			HttpServletResponse response,
+			@RequestBody String payload) {
 		this.payload = payload;
 
 		log.info("webhook: payload={} ", payload);

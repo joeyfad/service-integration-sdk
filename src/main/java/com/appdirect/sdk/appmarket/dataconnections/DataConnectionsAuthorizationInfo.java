@@ -20,12 +20,10 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- *
  * Representation of the the params and values required below are per Dave's spec outlined in the
  * "User Authorization Configurator API Endpoint" section of this page:
  * https://appdirect.jira.com/wiki/spaces/EN/pages/220995076/Outbound+Connect+Flow
  *
- * SDK internal, a user of the SDK should never interact with those directly.
  */
 @Getter
 @ToString

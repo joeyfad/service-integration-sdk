@@ -17,8 +17,6 @@ import java.util.EnumMap;
 import java.util.Map;
 import java.util.function.Supplier;
 
-import org.springframework.beans.factory.annotation.Qualifier;
-
 /**
  * Dispatches incoming data to the appropriate handler.
  */
@@ -26,9 +24,10 @@ public class DataConnectionsWebhooksDispatcher {
 	private final SDKDataConnectionsWebhooksHandler webhooksHandler;
 	private final SDKDataConnectionsWebhooksHandler unknownHandler;
 
-	DataConnectionsWebhooksDispatcher(//AsyncEventHandler asyncHandler
-																		SDKDataConnectionsWebhooksHandler webhooksHandler,
-																		SDKDataConnectionsWebhooksHandler unknownHandler) {
+	DataConnectionsWebhooksDispatcher(
+			//AsyncEventHandler asyncHandler
+			SDKDataConnectionsWebhooksHandler webhooksHandler,
+			SDKDataConnectionsWebhooksHandler unknownHandler) {
 		//this.asyncHandler = asyncHandler;
 		this.webhooksHandler = webhooksHandler;
 		this.unknownHandler = unknownHandler;
@@ -37,7 +36,9 @@ public class DataConnectionsWebhooksDispatcher {
 	/**
 	 * Resolves the appropriate SDK-internal handler that corresponds to the incoming data and
 	 * forwards the data to it
+	 *
 	 * @param context
+	 *
 	 * @return
 	 */
 	DataConnectionsAPIResult dispatchAndHandle(DataConnectionsHandlingContext context) {
@@ -54,8 +55,6 @@ public class DataConnectionsWebhooksDispatcher {
 
 	}
 
-
-
 	private SDKDataConnectionsWebhooksHandler getHandlerFor(final DataConnectionsHandlingContext context) {
 
 		DataConnectionType currentType = DataConnectionType.WEBHOOK;
@@ -64,7 +63,6 @@ public class DataConnectionsWebhooksDispatcher {
 		{
 			currentType = DataConnectionType.UNKNOWN;
 		}
-
 
 		Map<DataConnectionType, Supplier<SDKDataConnectionsWebhooksHandler>> contextToHandlers = new EnumMap<>(DataConnectionType.class);
 		contextToHandlers.put(DataConnectionType.WEBHOOK, () -> webhooksHandler);

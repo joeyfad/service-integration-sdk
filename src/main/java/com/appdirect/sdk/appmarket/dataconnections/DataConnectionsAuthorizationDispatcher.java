@@ -25,9 +25,10 @@ public class DataConnectionsAuthorizationDispatcher {
 	private final SDKDataConnectionsAuthorizationHandler authorizationHandler;
 	private final SDKDataConnectionsAuthorizationHandler unknownHandler;
 
-	DataConnectionsAuthorizationDispatcher(//AsyncEventHandler asyncHandler,
-																				 SDKDataConnectionsAuthorizationHandler authorizationHandler,
-																				 SDKDataConnectionsAuthorizationHandler unknownHandler) {
+	DataConnectionsAuthorizationDispatcher(
+			//AsyncEventHandler asyncHandler,
+			SDKDataConnectionsAuthorizationHandler authorizationHandler,
+			SDKDataConnectionsAuthorizationHandler unknownHandler) {
 		//this.asyncHandler = asyncHandler;
 		this.authorizationHandler = authorizationHandler;
 		this.unknownHandler = unknownHandler;
@@ -36,26 +37,26 @@ public class DataConnectionsAuthorizationDispatcher {
 	/**
 	 * Resolves the appropriate SDK-internal handler that corresponds to the incoming data and
 	 * forwards the data to it
+	 *
 	 * @param context
+	 *
 	 * @return
 	 */
 	DataConnectionsAPIResult dispatchAndHandle(DataConnectionsHandlingContext context) {
-
 		//SDKDataConnectionsAuthorizationHandler handler = getHandlerFor(context);
 //		if (events.eventShouldBeHandledAsync(rawEvent)) {
 //			return asyncHandler.handle(eventHandler, rawEvent, eventContext);
 //		} else {
 //			return eventHandler.handle(rawEvent, eventContext);
 //		}
-		// no support for asyn, so just handle it one way
+		// no support for async, so just handle it one way
 		return getHandlerFor(context).handleAuthorization(context);
-
 	}
 
 	private SDKDataConnectionsAuthorizationHandler getHandlerFor(final DataConnectionsHandlingContext context) {
 
 		DataConnectionType currentType = DataConnectionType.AUTHORIZATION;
-		// TODO: better way of idenfiying non-authorization
+		// TODO: better way of idenfiying non-authorization requests?
 		if (!context.getRequest().getParameterMap().containsKey("source"))
 		{
 			currentType = DataConnectionType.UNKNOWN;

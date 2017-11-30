@@ -13,12 +13,10 @@
 
 package com.appdirect.sdk.appmarket.dataconnections;
 
-
 /**
  * SDK-internal: meant for handling Data Connection Webhooks
  */
 @FunctionalInterface
 interface SDKDataConnectionsWebhooksHandler {
-
 	DataConnectionsAPIResult handleWebhooks(DataConnectionsHandlingContext eventContext);
 }

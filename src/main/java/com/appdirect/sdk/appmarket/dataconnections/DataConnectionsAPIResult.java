@@ -47,8 +47,7 @@ public class  DataConnectionsAPIResult {
 	}
 
 	@JsonCreator
-	public DataConnectionsAPIResult(@JsonProperty("success") boolean success,
-																	@JsonProperty("message") String message) {
+	public DataConnectionsAPIResult(@JsonProperty("success") boolean success, @JsonProperty("message") String message) {
 		this.success = success;
 		this.message = message;
 	}

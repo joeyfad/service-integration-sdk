@@ -31,7 +31,7 @@ import com.appdirect.sdk.appmarket.AppmarketDataConnectionWebhooksHandler;
 public class DefaultDataConnectionsHandlers {
 
 	@Bean
-	public AppmarketDataConnectionAuthorizationHandler defaultDataConnectionHandler() {
+	public AppmarketDataConnectionAuthorizationHandler defaultDataConnectionAuthorizationHandler() {
 		return (context) -> defaultErrorResponse("default");
 	}
 

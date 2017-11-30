@@ -17,9 +17,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-//import com.appdirect.sdk.appmarket.dataconnections.DataConnectionsController;
-//import com.appdirect.sdk.appmarket.dataconnections.DataConnectionsAuthorizationDispatcher;
-//import com.appdirect.sdk.appmarket.dataconnections.DataConnectionsAuthorizationService;
 import com.appdirect.sdk.appmarket.DeveloperSpecificAppmarketCredentialsSupplier;
 import com.appdirect.sdk.appmarket.migration.AppmarketMigrationController;
 import com.appdirect.sdk.appmarket.migration.AppmarketMigrationService;
@@ -58,26 +55,6 @@ public class AppmarketCommunicationConfiguration {
 	public AppmarketEventController appmarketEventController(AppmarketEventService appmarketEventService, OAuthKeyExtractor oauthKeyExtractor) {
 		return new AppmarketEventController(appmarketEventService, oauthKeyExtractor);
 	}
-
-//	@Bean
-//	public DataConnectionsAuthorizationService dataConnectionsService(DataConnectionsAuthorizationDispatcher dispatcher) {
-//		return new DataConnectionsAuthorizationService(dispatcher);
-//	}
-//
-//	@Bean
-//	public DataConnectionsController dataConnectionsController(DataConnectionsAuthorizationService dataConnectionsService) {
-//		return new DataConnectionsController(dataConnectionsService);
-//	}
-
-//	@Bean
-//	public DataConnectionsAuthorizationService dataConnectionsService(DataConnectionsAuthorizationDispatcher dispatcher) {
-//		return new DataConnectionsAuthorizationService(dispatcher);
-//	}
-//
-//	@Bean
-//	public DataConnectionsController dataConnectionsController() {
-//		return new DataConnectionsController();
-//	}
 
 	@Bean
 	public AppmarketMigrationService appmarketMigrationService(CustomerAccountValidationHandler customerAccountValidationHandler, SubscriptionValidationHandler subscriptionValidationHandler) {
