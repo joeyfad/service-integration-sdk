@@ -40,6 +40,8 @@ public class  DataConnectionsAPIResult {
 	private String userIdentifier;
 	@JsonIgnore
 	private int statusCodeReturnedToAppmarket;
+	// allows the overriding of authorization response page
+	private DataConnectionsAuthorizationResponse authorizationResponse;
 
 	public DataConnectionsAPIResult(ErrorCode errorCode, String message) {
 		this(false, message);
@@ -55,6 +57,12 @@ public class  DataConnectionsAPIResult {
 	public static DataConnectionsAPIResult success(String message) {
 		DataConnectionsAPIResult result = new DataConnectionsAPIResult(true, message);
 		result.setStatusCodeReturnedToAppmarket(200);
+		return result;
+	}
+
+	public static DataConnectionsAPIResult success(String message, DataConnectionsAuthorizationResponse authorizationResponse) {
+		DataConnectionsAPIResult result = success(message);
+		result.setAuthorizationResponse(authorizationResponse);
 		return result;
 	}
 
@@ -76,6 +84,12 @@ public class  DataConnectionsAPIResult {
 	public static DataConnectionsAPIResult failure(ErrorCode errorCode, String message) {
 		DataConnectionsAPIResult result = new DataConnectionsAPIResult(errorCode, message);
 		result.setStatusCodeReturnedToAppmarket(200);
+		return result;
+	}
+
+	public static DataConnectionsAPIResult failure(ErrorCode errorCode, String message, DataConnectionsAuthorizationResponse authorizationResponse) {
+		DataConnectionsAPIResult result = failure(errorCode, message);
+		result.setAuthorizationResponse(authorizationResponse);
 		return result;
 	}
 }

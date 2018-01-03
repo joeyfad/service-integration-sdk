@@ -13,7 +13,10 @@
 
 package com.appdirect.sdk.appmarket.dataconnections;
 
+import com.appdirect.sdk.appmarket.events.ErrorCode;
+
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+import static org.springframework.http.MediaType.TEXT_HTML_VALUE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
@@ -27,6 +30,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
@@ -50,18 +54,30 @@ public class DataConnectionsController {
 	 * @param source  the source from which the connect authorization request is coming from (i.e. AppWise or AppInsights)
 	 * @return the HTTP response to return to the AppMarket.
 	 */
-	@RequestMapping(method = GET, value = "/authorization", produces = APPLICATION_JSON_VALUE)
-	public ResponseEntity<DataConnectionsAPIResult> authorization(
+	@RequestMapping(method = GET, value = "/authorization", produces = TEXT_HTML_VALUE)
+	@ResponseBody
+	public ResponseEntity<String> authorization(
 			HttpServletRequest request,
 			HttpServletResponse response,
 			@RequestParam("source") String source) {
-		// TODO: consider adding all required parameters i.e. appId, userId, companyId, baseUrl, along with source
+		// TODO: consider adding all required parameters i.e. appId, userId, companyId, baseUrl, along with source - without breaking callback flow
 		log.info("authorization: source={} ", source);
 
 		DataConnectionsAPIResult result = dataConnectionsAuthorizationService.processData(executionContext(request, response));
 
 		log.info("authorization: apiResult={}", result);
-		return new ResponseEntity<>(result, httpStatusOf(result));
+		// return page that indicates success or failure based on DataConnectionAPIResult returned
+		String responseString = null;
+		DataConnectionsAuthorizationResponse authResponse = (result.getAuthorizationResponse() != null) ? result.getAuthorizationResponse(): new DataConnectionsAuthorizationResponseDefaultImpl() {
+		};
+		if (result.isSuccess()) {
+			responseString = authResponse.success();
+		} else {
+			responseString = authResponse.failure(result.getErrorCode(), result.getMessage());
+		}
+		response.setContentType("text/html");
+		response.setCharacterEncoding("UTF-8");
+		return new ResponseEntity<>(responseString, httpStatusOf(result));
 	}
 
 	/**
